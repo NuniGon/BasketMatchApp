@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>
+     
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>  
+        <script type="text/javascript" src="js/lJson.js"></script>      
+        <script type="text/javascript">
+               app.initialize();
+        </script>
+
+<!-- script para la creación y localización del mapa y sus coordenadas -->
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <script>
+    var map;
+    var marcador;
+
+      function initialize() {
+        //var mapCanvas = document.getElementById('map');
+        var mapCanvas = document.getElementById('map');
+         
+        var mapOptions = {
+          center: new google.maps.LatLng(44.5403, -78.5463),
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        map = new google.maps.Map(mapCanvas, mapOptions)
+
+        marcador = new google.maps.Marker({
+          position:LatLng,
+          map: map
+        })
+      }
+
+      function showPosition(){
+
+        navigator.geolocation.getCurrentPosition(onSuccess, onError, {enableHighAccurracy:true})
+      }
+
+   
+    //Mi ubicación
+      function onSuccess(position){
+
+          var myposition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+          
+          var marker=new google.maps.Marker({
+            position:myposition,
+          });
+
+          marker.setMap(map);
+          
+          map.setCenter(myposition)
+
+          var element = document.getElementById('geolocation');
+          element.innerHTML = '<hr />'+ 'Latitude: '  + position.coords.latitude      + '<br />' +
+                              'Longitude: ' + position.coords.longitude     + '<br />' +
+                              '<hr />'      + element.innerHTML;
+        }
+
+       //Ubicación mediante introducción de las coordeandas longitud y latitud.
+      function showPositionRandom(){
+        navigator.geolocation.getCurrentPosition(onSuccessRandom, onError, {enableHighAccurracy:true})
+      }
+
+      function onSuccessRandom(position){
+          var latitude = $('#latitude').val();
+          var longitude = $('#longitude').val();
+
+          var myposition = new google.maps.LatLng(latitude, longitude)
+          
+          var marker=new google.maps.Marker({
+            position:myposition,
+          });
+
+          marker.setMap(map);
+          
+          map.setCenter(myposition)
+
+          var element = document.getElementById('geolocation');
+          element.innerHTML = '<hr />'+ 'Latitude: '  + position.coords.latitude      + '<br />' +
+                              'Longitude: ' + position.coords.longitude     + '<br />' +
+                              '<hr />'      + element.innerHTML;
+      }
+
+      function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+
+
+
+<!--MAPA PARA OTROS DEPORTES -->
+ <script>
+    var omap;
+    var omarcador;
+
+      function oinitialize() {
+        //var mapCanvas = document.getElementById('map');
+        var mapCanvas = document.getElementById('omap');
+         
+        var mapOptions = {
+          center: new google.maps.LatLng(44.5403, -78.5463),
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        
+        omap = new google.maps.Map(mapCanvas, mapOptions)
+
+        marcador = new google.maps.Marker({
+          position:LatLng,
+          map: omap
+        })
+      }
+
+      function oshowPosition(){
+
+        navigator.geolocation.getCurrentPosition(oonSuccess, onError, {enableHighAccurracy:true})
+      }
+
+   
+    //Mi ubicación
+      function oonSuccess(position){
+
+          var myposition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+          
+          var marker=new google.maps.Marker({
+            position:myposition,
+          });
+
+          marker.setMap(omap);
+          
+          omap.setCenter(myposition)
+
+          var element = document.getElementById('ogeolocation');
+          element.innerHTML = '<hr />'+ 'Latitude: '  + position.coords.latitude      + '<br />' +
+                              'Longitude: ' + position.coords.longitude     + '<br />' +
+                              '<hr />'      + element.innerHTML;
+        }
+
+       //Ubicación mediante introducción de las coordeandas longitud y latitud.
+      function oshowPositionRandom(){
+        navigator.geolocation.getCurrentPosition(oonSuccessRandom, onError, {enableHighAccurracy:true})
+      }
+
+      function oonSuccessRandom(position){
+          var latitude = $('#olatitude').val();
+          var longitude = $('#olongitude').val();
+
+          var myposition = new google.maps.LatLng(latitude, longitude)
+          
+          var marker=new google.maps.Marker({
+            position:myposition,
+          });
+
+          marker.setMap(omap);
+          
+          omap.setCenter(myposition)
+
+          var element = document.getElementById('ogeolocation');
+          element.innerHTML = '<hr />'+ 'Latitude: '  + position.coords.latitude      + '<br />' +
+                              'Longitude: ' + position.coords.longitude     + '<br />' +
+                              '<hr />'      + element.innerHTML;
+      }
+
+      function oonError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+      }
+
+      google.maps.event.addDomListener(window, 'load', oinitialize);
+    </script>
+
+
+    <title>BasketMatch - Normativa</title>
+    </head>
+   
+<body>
+
+   <!-- página de INICIO -->
+    <div data-role="page" id="myInicio">
+        <div class="app">
+            <h1>BasketMatch</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Are you ready?</p>
+                <p class="event received"> ¡ GO !</p>
+            </div>
+
+            <div id="boton">
+                <div data-role="main" class="ui-content">
+                    <a href="#pageOne" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Acceder</a>
+                </div>
+            </div>
+        </div>
+    </div>  <!-- FIN del div de la página de INICIO -->
+
+
+  <!-- página UNO -->
+    <div data-role="page" id="pageOne">
+      
+     <!-- <h3>Búsqueda de Cancha</h3>-->
+          
+          <div data-role="main" class="ui-content">
+             <form method="post" action="demoform.asp">
+                 
+                 <!-- Select de varias opciones-->
+                  <fieldset class="controlgroup"> 
+                    <label for="ciudad">Búsqueda de cancha: </label>
+                        <select name="cdd" id="cdd">
+                              <option value="adeje">Adeje</option>
+                              <option value="arafo">Arafo</option>
+                              <option value="arona">Arona</option>
+                              <option value="buenavista">Buenavista del Norte</option>
+                              <option value="candelaria<">Candelaria</option>
+                              <option value="rosario">El Rosario</option>
+                              <option value="sauzal">El Sauzal</option>
+                              <option value="garachico">Garachico</option>
+                              <option value="granadilla">Granadilla de Abona</option>
+                              <option value="guimar">Guimar</option>
+                              <option value="icod">Icod de Los Vinos</option>
+                              <option value="guancha">La Guancha</option>
+                              <option value="matanza">La Matanza de Acentejo</option>
+                              <option value="orotava">La Orotava</option>
+                              <option value="victoria">La Victoria de Acentejo</option>
+                              <option value="realejos">Los Realejos</option>
+                              <option value="puerto">Puerto de La Cruz</option>
+                              <option value="laguna">San Critobal de La Laguna</option>
+                              <option value="abona">San Miguel de Abona</option>
+                              <option value="santacruz">Santa Cruz de Tenerife</option>
+                              <option value="santaursula">Santa Ursula</option>
+                              <option value="santiago">Santiago del Teide</option>
+                              <option value="tacoronte">Tacoronte</option>
+                              <option value="tegueste">Tegueste</option>
+                        </select>
+                 <input type="button" onclick="leerJSON()" data-inline="true" value="Submit"/>
+              </form>
+
+          </div>
+        <!--</div>-->
+
+        <div id="datos"></div>
+
+        <div data-role="main" class="ui-content">
+          <form method="post" action="demoform.asp">
+            <div class="ui-field-contain">
+              <label for="longitude">Longitud:</label>
+              <input type="text" name="longitude" id="longitude" placeholder="long coordinate">       
+              
+              <label for="latitude">Latitud:</label>
+              
+              <input type="text" name="latitude" id="latitude" placeholder="lat coordinate">
+            </div>
+            <input type="button" onclick="showPositionRandom()" data-inline="true" value="Submit">
+          </form>
+        </div>
+
+      <!-- Visualización del MAPA -->
+      <div id="map"></div>
+      <button onclick="showPosition()" id="bMap"> Mostrar ubicacion </button>
+      <!--<p id = "geolocation"></p>-->
+
+      <div data-role="main" class="ui-content">
+          <div data-role="collapsible">
+            <h1>Más</h1>
+            <div data-role="controlgroup" data-type="vertical">
+              <a href="#pageTwo" class="ui-btn" id="mCanchas">Mapa</a>
+              <a href="#pageThree" class="ui-btn" id="futbol">Otros</a>
+            </div>
+          </div>
+      </div>
+       
+    </div><!-- Fin del div pagONE-->
+   
+
+<!-- Inicio del div pageTwo -->
+    <div data-role="page" id="pageTwo"> 
+       <iframe src="https://www.google.com/maps/d/u/0/embed?mid=z1KxVXa2DNGM.ka-COBhc5hhc" width="640" height="480"></iframe>
+
+
+      <div data-role="main" class="ui-content">
+          <div data-role="collapsible">
+            <h1>Más</h1>
+            <div data-role="controlgroup" data-type="vertical">
+              <a href="#pageOne" class="ui-btn" id="baloncesto">Baloncesto</a>
+              <a href="#pageThree" class="ui-btn" id="otros">Otros</a>
+            </div>
+          </div>
+      </div>
+     </div>
+<!-- Fin del div pageTwo -->
+
+
+<!-- Inicio del div pageThree -->
+      <div data-role="page" id="pageThree"> 
+              <div data-role="main" class="ui-content">
+                   <form method="post" action="demoform.asp">
+                       
+                       <!-- Select de varias opciones-->
+                        <fieldset class="controlgroup"> 
+                          <label for="ciudad">Búsqueda de campo : </label>
+                              <select name="cdd" id="ocdd">
+                              <option value="adeje">Adeje</option>
+                              <option value="arafo">Arafo</option>
+                              <option value="arico">Arico</option>
+                              <option value="arona">Arona</option>
+                              <option value="buenavista">Buenavista del Norte</option>
+                              <option value="candelaria<">Candelaria</option>
+                              <option value="rosario">El Rosario</option>
+                              <option value="sauzal">El Sauzal</option>
+                              <option value="tanque">El Tanque</option>
+                              <option value="fasnia">Fasnia</option>
+                              <option value="garachico">Garachico</option>
+                              <option value="granadilla">Granadilla de Abona</option>
+                              <option value="isora">Guía de Isora</option>
+                              <option value="guimar">Guimar</option>
+                              <option value="icod">Icod de Los Vinos</option>
+                              <option value="guancha">La Guancha</option>
+                              <option value="matanza">La Matanza de Acentejo</option>
+                              <option value="orotava">La Orotava</option>
+                              <option value="victoria">La Victoria de Acentejo</option>
+                              <option value="realejos">Los Realejos</option>
+                              <option value="silos">Los Silos</option>
+                              <option value="puerto">Puerto de La Cruz</option>
+                              <option value="laguna">San Critobal de La Laguna</option>
+                              <option value="sanjuan">San Juan de la Rambla</option>
+                              <option value="abona">San Miguel de Abona</option>
+                              <option value="santacruz">Santa Cruz de Tenerife</option>
+                              </select>        
+                       <input type="button" onclick="readJSON()" data-inline="true" value="Submit"/>
+                    </form>
+              </div>
+
+              <div id="odatos"></div>
+
+              <div data-role="main" class="ui-content">
+                  <form method="post" action="demoform.asp">
+                    <div class="ui-field-contain">
+                      <label for="longitude">Longitud:</label>
+                      <input type="text" name="longitude" id="olongitude" placeholder="long coordinate">              
+                    
+                      <label for="latitude">Latitud:</label>   
+                      <input type="text" name="latitude" id="olatitude" placeholder="lat coordinate">
+                    </div>
+                    <input type="button" onclick="oshowPositionRandom()" data-inline="true" value="Submit">
+                  </form>
+               </div>
+
+                <!-- Visualización del MAPA -->
+                <div id="omap"></div>
+                <button onclick="oshowPosition()" id="obMap"> Mostrar ubicacion </button>
+                <!--<p id = "geolocation"></p>-->
+                 <a href="#pageTwo" >Mapa</a>
+
+      </div>
+<!-- Fin del div pageThree -->
+     
+
+      <footer>
+           
+      </footer>
+
+    </body>
+</html>
